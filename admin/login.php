@@ -11,7 +11,7 @@ if (isset($_SESSION['admin_id'])) {
 $error = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $username = $_POST['username'] ?? '';
+    $email = $_POST['email'] ?? '';
     $password = $_POST['password'] ?? '';
 
     try {
@@ -26,19 +26,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         );
 
         $stmt = $pdo->prepare("
-            SELECT id, username, password, status
+            SELECT id, email, password, status
             FROM admins
-            WHERE username = :username
+            WHERE email = :email
         ");
         
-        $stmt->execute([':username' => $username]);
+        $stmt->execute([':email' => $email]);
         $admin = $stmt->fetch();
 
         if ($admin && password_verify($password, $admin['password'])) {
             if ($admin['status'] === 'active') {
                 // ログイン成功
                 $_SESSION['admin_id'] = $admin['id'];
-                $_SESSION['admin_username'] = $admin['username'];
+                $_SESSION['admin_email'] = $admin['email'];
                 
                 // 最終ログイン時間の更新
                 $stmt = $pdo->prepare("
@@ -75,7 +75,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $error = 'アカウントが無効化されています。';
             }
         } else {
-            $error = 'ユーザー名またはパスワードが正しくありません。';
+            $error = 'メールアドレスまたはパスワードが正しくありません。';
         }
     } catch (PDOException $e) {
         $error = 'システムエラーが発生しました。時間をおいて再度お試しください。';
@@ -109,6 +109,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             color: var(--primary-color);
             margin: 0;
             font-size: 24px;
+        }
+
+        .login-header img {
+            display: block;
+            margin: 0 auto 10px auto;
         }
 
         .login-form {
@@ -147,7 +152,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         .login-button {
-            background: var(--primary-color);
+            background: #f7931e;
             color: #fff;
             padding: 12px;
             border: none;
@@ -159,7 +164,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         .login-button:hover {
-            background: var(--secondary-color);
+            background: #d97706;
             transform: translateY(-2px);
         }
 
@@ -179,7 +184,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <body>
     <div class="login-container">
         <div class="login-header">
-            <h1>管理者ログイン</h1>
+            <img src="../images/ap-logo.png" alt="アポトル ロゴ" style="height:60px; margin-bottom: 10px;">
         </div>
 
         <?php if ($error): ?>
@@ -190,9 +195,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         <form class="login-form" method="POST" action="">
             <div class="form-group">
-                <label for="username">ユーザー名</label>
-                <input type="text" id="username" name="username" required
-                       value="<?php echo htmlspecialchars($_POST['username'] ?? ''); ?>">
+                <label for="email">メールアドレス</label>
+                <input type="email" id="email" name="email" required value="<?php echo htmlspecialchars($_POST['email'] ?? ''); ?>">
             </div>
 
             <div class="form-group">
