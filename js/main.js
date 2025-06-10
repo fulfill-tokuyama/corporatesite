@@ -2,11 +2,13 @@
 document.addEventListener('DOMContentLoaded', function() {
     const hamburger = document.querySelector('.hamburger');
     const nav = document.querySelector('.nav');
+    const navList = document.querySelector('.nav-list');
     
-    if (hamburger && nav) {
+    if (hamburger && nav && navList) {
         hamburger.addEventListener('click', function() {
             nav.classList.toggle('active');
             hamburger.classList.toggle('active');
+            navList.classList.toggle('active');
         });
     }
     
@@ -49,6 +51,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (nav.classList.contains('active')) {
                     nav.classList.remove('active');
                     hamburger.classList.remove('active');
+                    navList.classList.remove('active');
                 }
             }
         });
