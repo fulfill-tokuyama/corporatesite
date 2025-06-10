@@ -101,7 +101,7 @@ document.addEventListener('DOMContentLoaded', function() {
             name: '佐藤 誠',
             position: '設計部長',
             image: '../images/about/staff2.svg',
-            career: '建築設計事務所で10年以上の経験を積み、2015年に【会社名】に参画。',
+            career: '建築設計事務所で10年以上の経験を積み、2015年に株式会社みらい不動産に参画。',
             qualifications: '一級建築士、インテリアコーディネーター',
             message: '機能性とデザインの両立を心がけ、お客様のライフスタイルに合わせた最適な設計を提供します。'
         },
@@ -109,7 +109,7 @@ document.addEventListener('DOMContentLoaded', function() {
             name: '田中 健一',
             position: '施工管理部長',
             image: '../images/about/staff3.svg',
-            career: '大手建設会社で15年以上の施工管理経験を積み、2018年に【会社名】に参画。',
+            career: '大手建設会社で15年以上の施工管理経験を積み、2018年に株式会社みらい不動産に参画。',
             qualifications: '一級施工管理技士、建築施工管理技士',
             message: '安全・確実な施工を第一に、品質の高いRC住宅づくりを実現します。'
         }
